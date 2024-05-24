@@ -1,0 +1,32 @@
+==================================================================
+= Multi Theft Auto: San Andreas v1.6 [64 bit]
+==================================================================
+= Server name      : Default MTA Server
+= Server IP address: auto
+= Server port      : 7702
+= 
+= Log file         : ..e/container/mods/deathmatch/logs/server.log
+= Maximum players  : 10
+= HTTP port        : 20005
+= Voice Chat       : Disabled
+= Bandwidth saving : Medium
+==================================================================
+[24-05-24 03:21:22] File 'settings.xml' not present, creating new node.
+[24-05-24 03:21:22] Resource 'ip2c' requests some acl rights. Use the command 'aclrequest list ip2c'
+[24-05-24 03:21:22] Resource 'runcode' requests some acl rights. Use the command 'aclrequest list runcode'
+[24-05-24 03:21:22] Resources: 198 loaded, 0 failed
+[24-05-24 03:21:22] Starting resources...
+[24-05-24 03:21:22] Admin access list successfully updated 
+[24-05-24 03:21:22] INFO: Admin added 530 missing rights
+[24-05-24 03:21:22] Server minclientversion is now 1.5.9-9.20957.0
+[24-05-24 03:21:22] startResource: Resource 'ip2c' started
+[24-05-24 03:21:22] ERROR: [admin]/admin/server/admin_server.lua:229: table index is nil
+[24-05-24 03:21:22] Gamemode 'play' started.
+[24-05-24 03:21:22] Authorized serial account protection is enabled for the ACL group(s): `Admin`  See http://mtasa.com/authserial
+[24-05-24 03:21:22] WARNING: <owner_email_address> not set
+[24-05-24 03:21:22] Server started and is ready to accept connections!
+[24-05-24 03:21:22] To stop the server, type 'shutdown' or press Ctrl-C
+[24-05-24 03:21:22] Type 'help' for a list of commands.
+[24-05-24 03:21:23] Querying MTA master server... success! (Auto detected IP:186.26.107.153)
+[24-05-24 03:21:23] INFO: IpToCountry file not found, successfully copied from backup
+[24-05-24 03:21:23] WARNING: [admin]/ip2c/server.lua:230: Access denied @ 'fetchRemote'
