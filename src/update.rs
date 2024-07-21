@@ -9,7 +9,7 @@ static VERSION: &str = include_str!("version");
 static UPDATE_VERSION_URL: &str =
     "https://raw.githubusercontent.com/drylian/Accelerator/main/src/version";
 static DOWNLOAD_URL: &str =
-    "https://github.com/drylian/Accelerator/raw/main/src/accelerator-update";
+    "https://github.com/drylian/Accelerator/raw/main/release/accelerator-rs";
 
 async fn fetch_remote_version(url: &str) -> Result<String, Box<dyn Error>> {
     let client = Client::new();
@@ -18,7 +18,6 @@ async fn fetch_remote_version(url: &str) -> Result<String, Box<dyn Error>> {
     if !response.status().is_success() {
         return Err(format!("Failed to fetch the remote version: {}", response.status()).into());
     }
-
     let version = response.text().await?;
     Ok(version.trim().to_string())
 }
@@ -43,6 +42,7 @@ async fn download_file(url: &str, file_name: &str) -> Result<(), Box<dyn Error>>
 pub async fn update() -> Result<(), Box<dyn Error>> {
     let remote_version = fetch_remote_version(UPDATE_VERSION_URL).await?;
     let local_version = VERSION.trim();
+    println!("{}",color::color(Color::Green, "Downloaded"));
 
     if remote_version != local_version {
         println!("A new {} is available. Local version: {}, Remote version: {}",color::color(Color::Green, "version"), color::color(Color::Yellow, local_version), color::color(Color::Blue, &remote_version));
@@ -51,7 +51,7 @@ pub async fn update() -> Result<(), Box<dyn Error>> {
         download_file(DOWNLOAD_URL, "accelerator-update").await?;
         println!("{}",color::color(Color::Green, "Downloaded"));
     } else {
-        println!("The Accelerator is {}. Version: {}",color::color(Color::Green, "up-to-date"), color::color(Color::Green, local_version));
+        println!("The Accelerator is {}. Version: {}",color::color(Color::Green, "up-to-date"), color::color(Color::Green, &remote_version));
     }
 
     Ok(())
