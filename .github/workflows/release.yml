@@ -1,33 +1,43 @@
-name: Release
-
-permissions:
-  contents: write
+name: Rust Release
 
 on:
   push:
-    tags:
-      - v[0-9]+.*
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  CARGO_TERM_COLOR: always
 
 jobs:
-  create-release:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: taiki-e/create-gh-release-action@v1
-        with:
-          # (required) GitHub token for creating GitHub Releases.
-          token: ${{ secrets.GITHUB_TOKEN }}
+  build:
 
-  upload-assets:
-    needs: create-release
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: taiki-e/upload-rust-binary-action@v1
-        with:
-          bin: accelerator-rs
-          tar: none
-          zip: none
-          archive: $bin
-          # (required) GitHub token for uploading assets to GitHub Releases.
-          token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Rust
+      uses: actions/setup-rust@v1
+      with:
+        rust-version: '1.73.0'
+
+    - name: Build
+      run: cargo build --release --verbose
+
+    - name: Run tests
+      run: cargo test --verbose
+
+    - name: Create release folder
+      run: |
+        mkdir -p release
+        cp target/release/accelerator-rs release/
+
+    - name: Commit release files
+      uses: EndBug/add-and-commit@v9
+      with:
+        author_name: 'github-actions'
+        author_email: 'github-actions@github.com'
+        message: 'Add release files'
+        add: 'release/**'
