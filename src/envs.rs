@@ -16,4 +16,11 @@ pub fn preset_envs() {
     } else {
         env::set_var("NO_HTML", "true");
     }
+
+    let no_html = env::var("NOCLIENTCACHE").unwrap_or("".to_string());
+    if !no_html.is_empty() && (vec!["true", "false"].contains(&no_html.as_str())) {
+        env::set_var("NOCLIENTCACHE", no_html);
+    } else {
+        env::set_var("NOCLIENTCACHE", "true");
+    }
 }
